@@ -1,0 +1,73 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+
+    <title>Car rent</title>
+ <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+
+     
+</head>
+<body>
+<div class="container">
+    <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+    <h2>car Details</h2>
+        <div>
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">car Id:</label>
+                    <div class="col-sm-10">
+                        <p class="form-control-static" th:text="${car.carId}">car Id</p></div>
+                </div>
+                <div class="form-group">
+					<label class="col-sm-2 control-label">Make:</label>
+					<div class="col-sm-10">
+						<p class="form-control-static" th:text="${car.carMake}" >Make:</p>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Model:</label>
+					<div class="col-sm-10">
+						<p  class="form-control-static" th:text="${car.carModel}" >Model:</p>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Color:</label>
+					<div class="col-sm-10">
+						<p class="form-control-static" th:text="${car.carColor}" >Color:</p>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Plate number:</label>
+					<div class="col-sm-10">
+						<p class="form-control-static" th:text="${car.carPlateNumber}">Plate number:</p>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Mot:</label>
+					<div class="col-sm-10">
+						<p class="form-control-static" th:text="${car.motDate}">Mot:</p>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Comment</label>
+					<div class="col-sm-10">
+						<p class="form-control-static" th:text="${car.carComment}" >Comment</p>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Isurance</label>
+					<div class="col-sm-10">
+						<p class="form-control-static" th:text="${car.carIsuranceDate}">Isurance</p>
+					</div>
+				</div>
+            </form>
+    </div>
+</div>
+
+</body>
+</html>
