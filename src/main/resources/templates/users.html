@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <title>User rent</title>
+<!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+
+</head>
+<body>
+	<div class="container">
+		<!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+		<div th:if="${not #lists.isEmpty(users)}">
+			<h2>User List</h2>
+			<table class="table table-striped">
+				<tr>
+					<th>Id</th>
+					<th>First name</th>
+					<th>Second name</th>
+					<th>Login</th>
+					
+					<th>View</th>
+					<th>Edit</th>
+					<th>Delete</th>
+
+				</tr>
+				<tr th:each="user : ${users}">
+					<td th:text="${user.userId}"><a href="/user/${user.userId}">Id</a></td>
+					<td th:text="${user.userFirstName}">First Name</td>
+					<td th:text="${user.userSecondName}">Second Name</td>
+					<td th:text="${user.userLogin}">Login</td>
+					
+					<td><a th:href="${'/user/show/' + user.userId}">View</a></td>
+					<td><a th:href="${'/user/edit/' + user.userId}">Edit</a></td>
+					<td><a th:href="${'/user/delete/' + user.userId}">Delete</a></td>
+				</tr>
+			</table>
+		</div>
+		<div th:if="${#lists.isEmpty(users)}" class="alert alert-warning">
+			<strong>Warning!</strong> No users added jet.
+		</div>
+		<div>
+		<a th:href="${'/user/new'}"><button type="button" class="btn btn-success">Add new user</button>
+		</a>
+		</div>
+	</div>
+</body>
+</html>
