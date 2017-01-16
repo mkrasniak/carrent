@@ -1,0 +1,61 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+
+    <title>Car rent</title>
+ <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+
+     
+</head>
+<body>
+<div class="container">
+    <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+    <h2>Customer Details</h2>
+        <div>
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Customer Id:</label>
+                    <div class="col-sm-10">
+                        <p class="form-control-static" th:text="${customer.customerId}">customer Id</p></div>
+                </div>
+                <div class="form-group">
+					<label class="col-sm-2 control-label">Adress:</label>
+					<div class="col-sm-10">
+						<p class="form-control-static" th:text="${customer.customerAdress}" >Adress:</p>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Bring Date:</label>
+					<div class="col-sm-10">
+						<p  class="form-control-static" th:text="${customer.customerBringDate}" >Bring date:</p>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-sm-2 control-label">First name:</label>
+					<div class="col-sm-10">
+						<p class="form-control-static" th:text="${customer.customerFirstName}" >First name:</p>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Second name:</label>
+					<div class="col-sm-10">
+						<p class="form-control-static" th:text="${customer.customerSecondName}">Second name:</p>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Last rent date:</label>
+					<div class="col-sm-10">
+						<p class="form-control-static" th:text="${customer.customerLastRentDate}">Last rent date:</p>
+					</div>
+				</div>
+				
+				
+            </form>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <title>Car rent</title>
+<!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+
+</head>
+<body>
+	<div class="container">
+		<!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+		<div th:if="${not #lists.isEmpty(customers)}">
+			<h2>Car List</h2>
+			<table class="table table-striped">
+				<tr>
+					<th>Id</th>
+					<th>Adress</th>
+					<th>Bring date</th>
+					<th>First name</th>
+					<th>Second name</th>
+					
+
+					<th>View</th>
+					<th>Edit</th>
+					<th>Delete</th>
+
+				</tr>
+				<tr th:each="customer : ${customers}">
+					<td th:text="${customer.customerId}"><a href="/customer/${customer.customerId}">Id</a></td>
+					<td th:text="${customer.customerAdress}">Adress</td>
+					<td th:text="${customer.customerBringDate}">Bring date</td>
+					<td th:text="${customer.customerFirstName}">First name</td>
+					<td th:text="${customer.customerSecondName}">Second name</td>
+					
+					<td><a th:href="${'/customer/show/' + customer.customerId}">View</a></td>
+					<td><a th:href="${'/customer/edit/' + customer.customerId}">Edit</a></td>
+					<td><a th:href="${'/customer/delete/' + customer.customerId}">Delete</a></td>
+				</tr>
+			</table>
+		</div>
+		<div th:if="${#lists.isEmpty(customers)}" class="alert alert-warning">
+			<strong>Warning!</strong> No customers added jet.
+		</div>
+		<div>
+		<a th:href="${'/customer/new'}"><button type="button" class="btn btn-success">Add new customer</button>
+		</a>
+		</div>
+	</div>
+</body>
+</html>
