@@ -49,7 +49,7 @@ public class Rent {
   @javax.persistence.Column(name="RENT_COMMENT",length=200)
   private String rentComment;
 
-  public void setRentComment(String rentComment) {
+  public void srentPriceetRentComment(String rentComment) {
     this.rentComment = rentComment;
   }
 
