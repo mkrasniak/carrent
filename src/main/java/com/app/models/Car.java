@@ -1,150 +1,148 @@
 package com.app.models;
-@javax.persistence.Entity
-@javax.persistence.Table(name="CAR")
-public class Car {
-  @javax.persistence.Id
-  @javax.persistence.GeneratedValue(strategy=javax.persistence.GenerationType.AUTO)
-  @javax.persistence.Column(name="CAR_ID",length=10,nullable=false)
-  private int carId;
 
-  public void setCarId(int carId) {
-    this.carId = carId;
-  }
+import java.io.Serializable;
+import javax.persistence.*;
+import java.util.Date;
 
-  public int getCarId() {
-    return carId;
-  }
 
-  @javax.persistence.ManyToOne
-  @javax.persistence.JoinColumn(name="CAR_ADDED_BY")
-  private User carAddedBy;
+/**
+ * The persistent class for the CAR database table.
+ * 
+ */
+@Entity
+@NamedQuery(name="Car.findAll", query="SELECT c FROM Car c")
+public class Car implements Serializable {
+	private static final long serialVersionUID = 1L;
 
-  public void setCarAddedBy(User carAddedBy) {
-    this.carAddedBy = carAddedBy;
-  }
+	@Id
+	@Column(name="CAR_ID")
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private int carId;
 
-  public User getCarAddedBy() {
-    return carAddedBy;
-  }
+	@Temporal(TemporalType.DATE)
+	@Column(name="CAR_AVAILABLE")
+	private Date carAvailable;
 
-  @javax.persistence.Column(name="CAR_AVAILABLE",length=8)
-  @javax.persistence.Temporal(value=javax.persistence.TemporalType.DATE)
-  private java.util.Date carAvailable;
+	@Column(name="CAR_COLOR")
+	private String carColor;
 
-  public void setCarAvailable(java.util.Date carAvailable) {
-    this.carAvailable = carAvailable;
-  }
+	@Column(name="CAR_COMMENT")
+	private String carComment;
 
-  public java.util.Date getCarAvailable() {
-    return carAvailable;
-  }
+	@Column(name="CAR_DELETED")
+	private boolean carDeleted;
 
-  @javax.persistence.Column(name="CAR_COLOR",length=15)
-  private String carColor;
+	@Temporal(TemporalType.DATE)
+	@Column(name="CAR_ISURANCE_DATE")
+	private Date carIsuranceDate;
 
-  public void setCarColor(String carColor) {
-    this.carColor = carColor;
-  }
+	@Column(name="CAR_MAKE")
+	private String carMake;
 
-  public String getCarColor() {
-    return carColor;
-  }
+	@Column(name="CAR_MODEL")
+	private String carModel;
 
-  @javax.persistence.Column(name="CAR_COMMENT",length=300)
-  private String carComment;
+	@Temporal(TemporalType.DATE)
+	@Column(name="CAR_MOT_DATE")
+	private Date carMotDate;
 
-  public void setCarComment(String carComment) {
-    this.carComment = carComment;
-  }
+	@Column(name="CAR_PLATE_NUMBER")
+	private String carPlateNumber;
 
-  public String getCarComment() {
-    return carComment;
-  }
+	//bi-directional many-to-one association to User
+	@ManyToOne
+	@JoinColumn(name="CAR_ADDED_BY")
+	private User user;
 
-  @javax.persistence.Column(name="CAR_DELETED",length=1)
-  private Boolean carDeleted;
+	public Car() {
+	}
 
-  public void setCarDeleted(Boolean carDeleted) {
-    this.carDeleted = carDeleted;
-  }
+	public int getCarId() {
+		return this.carId;
+	}
 
-  public Boolean getCarDeleted() {
-    return carDeleted;
-  }
+	public void setCarId(int carId) {
+		this.carId = carId;
+	}
 
-  @javax.persistence.Column(name="CAR_ISURANCE_DATE",length=8)
-  @javax.persistence.Temporal(value=javax.persistence.TemporalType.DATE)
-  private java.util.Date carIsuranceDate;
+	public Date getCarAvailable() {
+		return this.carAvailable;
+	}
 
-  public void setCarIsuranceDate(java.util.Date carIsuranceDate) {
-    this.carIsuranceDate = carIsuranceDate;
-  }
+	public void setCarAvailable(Date carAvailable) {
+		this.carAvailable = carAvailable;
+	}
 
-  public java.util.Date getCarIsuranceDate() {
-    return carIsuranceDate;
-  }
+	public String getCarColor() {
+		return this.carColor;
+	}
 
-  @javax.persistence.Column(name="CAR_MAKE",length=20)
-  private String carMake;
+	public void setCarColor(String carColor) {
+		this.carColor = carColor;
+	}
 
-  public void setCarMake(String carMake) {
-    this.carMake = carMake;
-  }
+	public String getCarComment() {
+		return this.carComment;
+	}
 
-  public String getCarMake() {
-    return carMake;
-  }
+	public void setCarComment(String carComment) {
+		this.carComment = carComment;
+	}
 
-  @javax.persistence.Column(name="CAR_MODEL",length=50)
-  private String carModel;
+	public boolean getCarDeleted() {
+		return this.carDeleted;
+	}
 
-  public void setCarModel(String carModel) {
-    this.carModel = carModel;
-  }
+	public void setCarDeleted(boolean carDeleted) {
+		this.carDeleted = carDeleted;
+	}
 
-  public String getCarModel() {
-    return carModel;
-  }
+	public Date getCarIsuranceDate() {
+		return this.carIsuranceDate;
+	}
 
-  @javax.persistence.Column(name="CAR_PLATE_NUMBER",length=10)
-  private String carPlateNumber;
+	public void setCarIsuranceDate(Date carIsuranceDate) {
+		this.carIsuranceDate = carIsuranceDate;
+	}
 
-  public void setCarPlateNumber(String carPlateNumber) {
-    this.carPlateNumber = carPlateNumber;
-  }
+	public String getCarMake() {
+		return this.carMake;
+	}
 
-  public String getCarPlateNumber() {
-    return carPlateNumber;
-  }
+	public void setCarMake(String carMake) {
+		this.carMake = carMake;
+	}
 
-  @javax.persistence.Column(name="MOT_DATE",length=8)
-  @javax.persistence.Temporal(value=javax.persistence.TemporalType.DATE)
-  private java.util.Date motDate;
+	public String getCarModel() {
+		return this.carModel;
+	}
 
-  public void setMotDate(java.util.Date motDate) {
-    this.motDate = motDate;
-  }
+	public void setCarModel(String carModel) {
+		this.carModel = carModel;
+	}
 
-  public java.util.Date getMotDate() {
-    return motDate;
-  }
+	public Date getCarMotDate() {
+		return this.carMotDate;
+	}
 
-  @javax.persistence.OneToMany(mappedBy="carRentCarId", fetch=javax.persistence.FetchType.LAZY)
-  private java.util.Set<CarRent> carRentCarIdCarrent = new java.util.HashSet<CarRent>();
+	public void setCarMotDate(Date carMotDate) {
+		this.carMotDate = carMotDate;
+	}
 
-  public void setCarRentCarIdCarrent(java.util.Set<CarRent> carRentCarIdCarrent) {
-    this.carRentCarIdCarrent = carRentCarIdCarrent;
-  }
+	public String getCarPlateNumber() {
+		return this.carPlateNumber;
+	}
 
-  public java.util.Set<CarRent> getCarRentCarIdCarrent() {
-    return carRentCarIdCarrent;
-  }
+	public void setCarPlateNumber(String carPlateNumber) {
+		this.carPlateNumber = carPlateNumber;
+	}
 
-  public void addCarRentCarIdCarrent(CarRent carRentCarIdCarrent) {
-    this.carRentCarIdCarrent.add(carRentCarIdCarrent);
-  }
+	public User getUser() {
+		return this.user;
+	}
 
-  public void removeCarRentCarIdCarrent(CarRent carRentCarIdCarrent) {
-    this.carRentCarIdCarrent.remove(carRentCarIdCarrent);
-  }
+	public void setUser(User user) {
+		this.user = user;
+	}
+
 }

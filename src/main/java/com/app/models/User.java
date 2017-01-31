@@ -1,118 +1,114 @@
 package com.app.models;
 
-import java.util.Collection;
+import java.io.Serializable;
+import javax.persistence.*;
+import java.util.List;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
-@SuppressWarnings("serial")
-@javax.persistence.Entity
-@javax.persistence.Table(name = "USER", uniqueConstraints = {
-		@javax.persistence.UniqueConstraint(columnNames = { "USER_FIRST_NAME" }), })
-public class User {
-	@javax.persistence.OneToMany(mappedBy = "carAddedBy", fetch = javax.persistence.FetchType.LAZY)
-	private java.util.Set<Car> carAddedByCar = new java.util.HashSet<Car>();
+/**
+ * The persistent class for the USER database table.
+ * 
+ */
+@Entity
+@NamedQuery(name="User.findAll", query="SELECT u FROM User u")
+public class User implements Serializable {
+	private static final long serialVersionUID = 1L;
 
-	public void setCarAddedByCar(java.util.Set<Car> carAddedByCar) {
-		this.carAddedByCar = carAddedByCar;
-	}
-
-	public java.util.Set<Car> getCarAddedByCar() {
-		return carAddedByCar;
-	}
-
-	public void addCarAddedByCar(Car carAddedByCar) {
-		this.carAddedByCar.add(carAddedByCar);
-	}
-
-	public void removeCarAddedByCar(Car carAddedByCar) {
-		this.carAddedByCar.remove(carAddedByCar);
-	}
-
-	@javax.persistence.OneToMany(mappedBy = "rentAddedBy", fetch = javax.persistence.FetchType.LAZY)
-	private java.util.Set<Rent> rentAddedByRent = new java.util.HashSet<Rent>();
-
-	public void setRentAddedByRent(java.util.Set<Rent> rentAddedByRent) {
-		this.rentAddedByRent = rentAddedByRent;
-	}
-
-	public java.util.Set<Rent> getRentAddedByRent() {
-		return rentAddedByRent;
-	}
-
-	public void addRentAddedByRent(Rent rentAddedByRent) {
-		this.rentAddedByRent.add(rentAddedByRent);
-	}
-
-	public void removeRentAddedByRent(Rent rentAddedByRent) {
-		this.rentAddedByRent.remove(rentAddedByRent);
-	}
-
-	@javax.persistence.Id
-	@javax.persistence.GeneratedValue(strategy = javax.persistence.GenerationType.AUTO)
-	@javax.persistence.Column(name = "USER_ID", length = 10, nullable = false)
+	@Id
+	@Column(name="USER_ID")
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int userId;
+
+	@Column(name="USER_DELETED")
+	private boolean userDeleted;
+
+	@Column(name="USER_FIRST_NAME")
+	private String userFirstName;
+
+	@Column(name="USER_LOGIN")
+	private String userLogin;
+
+	@Column(name="USER_PASSWORD")
+	private String userPassword;
+
+	@Column(name="USER_SECOND_NAME")
+	private String userSecondName;
+
+	//bi-directional many-to-one association to Car
+	@OneToMany(mappedBy="user")
+	private List<Car> cars;
+
+	public User() {
+	}
+
+	public int getUserId() {
+		return this.userId;
+	}
 
 	public void setUserId(int userId) {
 		this.userId = userId;
 	}
 
-	public int getUserId() {
-		return userId;
+	public boolean getUserDeleted() {
+		return this.userDeleted;
 	}
 
-	@javax.persistence.Column(name = "USER_DELETED", length = 1)
-	private Boolean userDeleted;
-
-	public void setUserDeleted(Boolean userDeleted) {
+	public void setUserDeleted(boolean userDeleted) {
 		this.userDeleted = userDeleted;
 	}
 
-	public Boolean getUserDeleted() {
-		return userDeleted;
+	public String getUserFirstName() {
+		return this.userFirstName;
 	}
-
-	@javax.persistence.Column(name = "USER_FIRST_NAME", length = 100)
-	private String userFirstName;
 
 	public void setUserFirstName(String userFirstName) {
 		this.userFirstName = userFirstName;
 	}
 
-	public String getUserFirstName() {
-		return userFirstName;
+	public String getUserLogin() {
+		return this.userLogin;
 	}
-
-	@javax.persistence.Column(name = "USER_LOGIN", length = 50)
-	private String userLogin;
 
 	public void setUserLogin(String userLogin) {
 		this.userLogin = userLogin;
 	}
 
-	public String getUserLogin() {
-		return userLogin;
+	public String getUserPassword() {
+		return this.userPassword;
 	}
-
-	@javax.persistence.Column(name = "USER_PASSWORD", length = 50)
-	private String userPassword;
 
 	public void setUserPassword(String userPassword) {
 		this.userPassword = userPassword;
 	}
 
-	public String getUserPassword() {
-		return userPassword;
+	public String getUserSecondName() {
+		return this.userSecondName;
 	}
-
-	@javax.persistence.Column(name = "USER_SECOND_NAME", length = 100)
-	private String userSecondName;
 
 	public void setUserSecondName(String userSecondName) {
 		this.userSecondName = userSecondName;
 	}
 
-	public String getUserSecondName() {
-		return userSecondName;
+	public List<Car> getCars() {
+		return this.cars;
 	}
+
+	public void setCars(List<Car> cars) {
+		this.cars = cars;
+	}
+
+	public Car addCar(Car car) {
+		getCars().add(car);
+		car.setUser(this);
+
+		return car;
+	}
+
+	public Car removeCar(Car car) {
+		getCars().remove(car);
+		car.setUser(null);
+
+		return car;
+	}
+
 }

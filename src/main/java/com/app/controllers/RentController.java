@@ -1,5 +1,6 @@
 package com.app.controllers;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,9 +8,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.app.models.Car;
 import com.app.models.Rent;
 import com.app.services.CarService;
+import com.app.services.CustomerService;
 import com.app.services.RentService;
 
 @Controller
@@ -17,17 +18,20 @@ public class RentController {
 
 	private RentService rentService;
 	private CarService carService;
+	private CustomerService customerService;
 
 	@Autowired
-	public RentController(RentService rentService, CarService carService) {
+	public RentController(RentService rentService, CarService carService, CustomerService customerService) {
 		this.rentService = rentService;
 		this.carService = carService;
+		this.customerService = customerService;
 	}
 
 	@RequestMapping("/rent/new")
 	public String newRent(Model model){
 		model.addAttribute("rent", new Rent());
 		model.addAttribute("cars", carService.listAllCars());
+		model.addAttribute("customers", customerService.listAllCustomers());
 		return "rentform";
 	}
 

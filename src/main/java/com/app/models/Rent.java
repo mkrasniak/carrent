@@ -1,117 +1,127 @@
 package com.app.models;
-@javax.persistence.Entity
-@javax.persistence.Table(name="RENT")
-public class Rent {
-  @javax.persistence.OneToMany(mappedBy="carRentRentId", fetch=javax.persistence.FetchType.LAZY)
-  private java.util.Set<CarRent> carRentRentIdCarrent = new java.util.HashSet<CarRent>();
 
-  public void setCarRentRentIdCarrent(java.util.Set<CarRent> carRentRentIdCarrent) {
-    this.carRentRentIdCarrent = carRentRentIdCarrent;
-  }
+import java.io.Serializable;
+import javax.persistence.*;
+import java.math.BigDecimal;
+import java.util.Date;
+import java.util.List;
 
-  public java.util.Set<CarRent> getCarRentRentIdCarrent() {
-    return carRentRentIdCarrent;
-  }
 
-  public void addCarRentRentIdCarrent(CarRent carRentRentIdCarrent) {
-    this.carRentRentIdCarrent.add(carRentRentIdCarrent);
-  }
+/**
+ * The persistent class for the RENT database table.
+ * 
+ */
+@Entity
+@NamedQuery(name="Rent.findAll", query="SELECT r FROM Rent r")
+public class Rent implements Serializable {
+	private static final long serialVersionUID = 1L;
 
-  public void removeCarRentRentIdCarrent(CarRent carRentRentIdCarrent) {
-    this.carRentRentIdCarrent.remove(carRentRentIdCarrent);
-  }
+	@Id
+	@Column(name="RENT_ID")
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private int rentId;
 
-  @javax.persistence.Id
-  @javax.persistence.GeneratedValue(strategy=javax.persistence.GenerationType.AUTO)
-  @javax.persistence.Column(name="RENT_ID",length=10,nullable=false)
-  private int rentId;
+	@Column(name="RENT_ADDED_BY")
+	private int rentAddedBy;
 
-  public void setRentId(int rentId) {
-    this.rentId = rentId;
-  }
+	@Column(name="RENT_COMMENT")
+	private String rentComment;
 
-  public int getRentId() {
-    return rentId;
-  }
+	@Column(name="RENT_DELETED")
+	private boolean rentDeleted;
 
-  @javax.persistence.ManyToOne
-  @javax.persistence.JoinColumn(name="RENT_ADDED_BY")
-  private User rentAddedBy;
+	@Temporal(TemporalType.DATE)
+	@Column(name="RENT_END_DATE")
+	private Date rentEndDate;
 
-  public void setRentAddedBy(User rentAddedBy) {
-    this.rentAddedBy = rentAddedBy;
-  }
+	@Column(name="RENT_PRICE")
+	private BigDecimal rentPrice;
 
-  public User getRentAddedBy() {
-    return rentAddedBy;
-  }
+	@Temporal(TemporalType.DATE)
+	@Column(name="RENT_START_DATE")
+	private Date rentStartDate;
 
-  @javax.persistence.Column(name="RENT_COMMENT",length=200)
-  private String rentComment;
+	@ManyToMany(cascade = CascadeType.PERSIST)
+	private List<Car> cars;
 
-  public void srentPriceetRentComment(String rentComment) {
-    this.rentComment = rentComment;
-  }
+	//bi-directional many-to-one association to Customer
+	@ManyToOne
+	@JoinColumn(name="RENT_CUSTOMER_ID")
+	private Customer customer;
 
-  public String getRentComment() {
-    return rentComment;
-  }
+	public Rent() {
+	}
 
-  @javax.persistence.ManyToOne
-  @javax.persistence.JoinColumn(name="RENT_CUSTOMER_ID")
-  private Customer rentCustomerId;
+	public int getRentId() {
+		return this.rentId;
+	}
 
-  public void setRentCustomerId(Customer rentCustomerId) {
-    this.rentCustomerId = rentCustomerId;
-  }
+	public void setRentId(int rentId) {
+		this.rentId = rentId;
+	}
 
-  public Customer getRentCustomerId() {
-    return rentCustomerId;
-  }
+	public int getRentAddedBy() {
+		return this.rentAddedBy;
+	}
 
-  @javax.persistence.Column(name="RENT_DELETED",length=1)
-  private Boolean rentDeleted;
+	public void setRentAddedBy(int rentAddedBy) {
+		this.rentAddedBy = rentAddedBy;
+	}
 
-  public void setRentDeleted(Boolean rentDeleted) {
-    this.rentDeleted = rentDeleted;
-  }
+	public String getRentComment() {
+		return this.rentComment;
+	}
 
-  public Boolean getRentDeleted() {
-    return rentDeleted;
-  }
+	public void setRentComment(String rentComment) {
+		this.rentComment = rentComment;
+	}
 
-  @javax.persistence.Column(name="RENT_END_DATE",length=8)
-  @javax.persistence.Temporal(value=javax.persistence.TemporalType.DATE)
-  private java.util.Date rentEndDate;
+	public boolean getRentDeleted() {
+		return this.rentDeleted;
+	}
 
-  public void setRentEndDate(java.util.Date rentEndDate) {
-    this.rentEndDate = rentEndDate;
-  }
+	public void setRentDeleted(boolean rentDeleted) {
+		this.rentDeleted = rentDeleted;
+	}
 
-  public java.util.Date getRentEndDate() {
-    return rentEndDate;
-  }
+	public Date getRentEndDate() {
+		return this.rentEndDate;
+	}
 
-  @javax.persistence.Column(name="RENT_PRICE",length=2)
-  private Float rentPrice;
+	public void setRentEndDate(Date rentEndDate) {
+		this.rentEndDate = rentEndDate;
+	}
 
-  public void setRentPrice(Float rentPrice) {
-    this.rentPrice = rentPrice;
-  }
+	public BigDecimal getRentPrice() {
+		return this.rentPrice;
+	}
 
-  public Float getRentPrice() {
-    return rentPrice;
-  }
+	public void setRentPrice(BigDecimal rentPrice) {
+		this.rentPrice = rentPrice;
+	}
 
-  @javax.persistence.Column(name="RENT_START_DATE",length=8)
-  @javax.persistence.Temporal(value=javax.persistence.TemporalType.DATE)
-  private java.util.Date rentStartDate;
+	public Date getRentStartDate() {
+		return this.rentStartDate;
+	}
 
-  public void setRentStartDate(java.util.Date rentStartDate) {
-    this.rentStartDate = rentStartDate;
-  }
+	public void setRentStartDate(Date rentStartDate) {
+		this.rentStartDate = rentStartDate;
+	}
 
-  public java.util.Date getRentStartDate() {
-    return rentStartDate;
-  }
+	public List<Car> getCars() {
+		return this.cars;
+	}
+
+	public void setCars(List<Car> cars) {
+		this.cars = cars;
+	}
+
+	public Customer getCustomer() {
+		return this.customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+
 }

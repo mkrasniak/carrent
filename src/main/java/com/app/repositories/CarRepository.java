@@ -1,9 +1,9 @@
 package com.app.repositories;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.app.models.Car;
 
-public interface CarRepository extends CrudRepository<Car, Integer> {
+public interface CarRepository extends JpaRepository<Car, Integer> {
 
 }

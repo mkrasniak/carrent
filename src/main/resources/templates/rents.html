@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head lang="en">
-    <title>Rent rent</title>
+<title>Rent rent</title>
 <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
 
 </head>
@@ -13,20 +13,24 @@
 			<table class="table table-striped">
 				<tr>
 					<th>Id</th>
-					<th>First name</th>
-					<th>Second name</th>
-					<th>Login</th>
-					
+					<th>Customer</th>
+					<th>Car</th>
+					<th>Start date</th>
+					<th>End date</th>
+					<th>Price</th>
+
 					<th>View</th>
 					<th>Edit</th>
 					<th>Delete</th>
 
 				</tr>
 				<tr th:each="rent : ${rents}">
-					<td th:text="${rent.rentId}"><a href="/rent/${rent.rentId}">Id</a></td>
-					<td th:text="${rent.rentFirstName}">First Name</td>
-					<td th:text="${rent.rentSecondName}">Second Name</td>
-					<td th:text="${rent.rentLogin}">Login</td>
+					<td th:text="${rent.rentId}"><a th:href="/rent/${rent.rentId}">Id</a></td>
+					<td th:text="${rent.customer.customerFirstName + ' ' + rent.customer.customerSecondName }"><a th:href="/customer/${customer.customerId}">Id</a></td>
+					<td><ul><li th:each="car : ${rent.cars}" th:text="${car.carMake + ' ' + car.carModel}" ><a th:href="/car/${car.carId}">ID</a></li></ul></td>
+					<td th:text="${rent.rentStartDate}"></td>
+					<td th:text="${rent.rentEndDate}"></td>
+					<td th:text="${rent.rentPrice}">Price</td>
 					
 					<td><a th:href="${'/rent/show/' + rent.rentId}">View</a></td>
 					<td><a th:href="${'/rent/edit/' + rent.rentId}">Edit</a></td>
@@ -38,8 +42,8 @@
 			<strong>Warning!</strong> No rents added jet.
 		</div>
 		<div>
-		<a th:href="${'/rent/new'}"><button type="button" class="btn btn-success">Add new rent</button>
-		</a>
+			<a th:href="${'/rent/new'}"><button type="button"
+					class="btn btn-success">Add new rent</button> </a>
 		</div>
 	</div>
 </body>
