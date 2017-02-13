@@ -1,12 +1,8 @@
 package com.app.services;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.app.models.Car;
 import com.app.models.Rent;
 import com.app.repositories.RentRepository;
 
@@ -29,23 +25,17 @@ public class RentServiceImpl implements RentService {
 	public Rent saveRent(Rent rent) throws Exception {
 		Iterable<Rent> rents = listAllRents();
 		Rent localRent = (Rent) rent.clone();
-		// Collection<Car> currentRentCar = new ArrayList<Car>();
-		// currentRentCar = rent.getCars();
-		//
 		for (Rent r : rents) {
-			if ( !(r.getRentStartDate().after(rent.getRentEndDate()) 
-					|| r.getRentEndDate().before((rent.getRentStartDate()))) ) {
-				
+			if (!(r.getRentStartDate().after(rent.getRentEndDate())
+					|| r.getRentEndDate().before((rent.getRentStartDate())))) {
+
 				r.getCars().retainAll(localRent.getCars());
-				if(r.getCars().size()!=0){
-					throw new Exception("conflict with rent " + r.getRentId() );
+				if (r.getCars().size() != 0) {
+					throw new Exception("conflict with rent " + r.getRentId());
 				}
 			}
-
 		}
-
 		return rentRepository.save(rent);
-
 	}
 
 	@Override
