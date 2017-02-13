@@ -26,7 +26,7 @@
 					<td th:text="${user.userId}"><a href="/user/${user.userId}">Id</a></td>
 					<td th:text="${user.userFirstName}">First Name</td>
 					<td th:text="${user.userSecondName}">Second Name</td>
-					<td th:text="${user.userLogin}">Login</td>
+					<td th:text="${user.userName}">Login</td>
 					
 					<td><a th:href="${'/user/show/' + user.userId}">View</a></td>
 					<td><a th:href="${'/user/edit/' + user.userId}">Edit</a></td>

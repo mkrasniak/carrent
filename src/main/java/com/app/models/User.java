@@ -4,49 +4,102 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.List;
 
-
 /**
  * The persistent class for the USER database table.
  * 
  */
+
 @Entity
-@NamedQuery(name="User.findAll", query="SELECT u FROM User u")
+@Table(name = "users")
 public class User implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="USER_ID")
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "userid")
 	private int userId;
 
-	@Column(name="USER_DELETED")
+	@Column(name = "username")
+	private String userName;
+
+	@Column(name = "password")
+	private String password;
+
+	@Column(name = "email")
+	private String email;
+
+	@Column(name = "enabled")
+	private int enabled;
+
+
+	@Column(name = "USER_DELETED")
 	private boolean userDeleted;
 
-	@Column(name="USER_FIRST_NAME")
+	@Column(name = "USER_FIRST_NAME")
 	private String userFirstName;
 
-	@Column(name="USER_LOGIN")
-	private String userLogin;
-
-	@Column(name="USER_PASSWORD")
-	private String userPassword;
-
-	@Column(name="USER_SECOND_NAME")
+	@Column(name = "USER_SECOND_NAME")
 	private String userSecondName;
 
-	//bi-directional many-to-one association to Car
-	@OneToMany(mappedBy="user")
+	// bi-directional many-to-one association to Car
+	@OneToMany(mappedBy = "user")
 	private List<Car> cars;
 
 	public User() {
 	}
 
+	public User(User user) {
+		super();
+		this.userId = user.userId;
+		this.userName = user.userName;
+		this.password = user.password;
+		this.email = user.email;
+		this.enabled = user.enabled;
+		this.userDeleted = user.userDeleted;
+		this.userFirstName = user.userFirstName;
+		this.userSecondName = user.userSecondName;
+		this.cars = user.cars;
+	}
+
 	public int getUserId() {
-		return this.userId;
+		return userId;
 	}
 
 	public void setUserId(int userId) {
 		this.userId = userId;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public int getEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(int enabled) {
+		this.enabled = enabled;
 	}
 
 	public boolean getUserDeleted() {
@@ -63,22 +116,6 @@ public class User implements Serializable {
 
 	public void setUserFirstName(String userFirstName) {
 		this.userFirstName = userFirstName;
-	}
-
-	public String getUserLogin() {
-		return this.userLogin;
-	}
-
-	public void setUserLogin(String userLogin) {
-		this.userLogin = userLogin;
-	}
-
-	public String getUserPassword() {
-		return this.userPassword;
-	}
-
-	public void setUserPassword(String userPassword) {
-		this.userPassword = userPassword;
 	}
 
 	public String getUserSecondName() {

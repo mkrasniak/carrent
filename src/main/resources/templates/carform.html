@@ -10,7 +10,7 @@
 		<!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
 		<h2>Car Details</h2>
 		<div>
-			<form class="carform-horizontal" th:object="${car}"	th:action="@{/car}" method="post">
+			<form class="form-horizontal" th:object="${car}"	th:action="@{/car}" method="post">
 				<input type="hidden" th:field="*{carId}" /> 
 				<div class="form-group">
 					<label class="col-sm-2 control-label">Make:</label>

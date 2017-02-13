@@ -6,7 +6,7 @@ public interface RentService {
 
     Rent getRentById(Integer id);
 
-    Rent saveRent(Rent rent);
+    Rent saveRent(Rent rent) throws Exception;
 
     void deleteRent(Integer id);	
     

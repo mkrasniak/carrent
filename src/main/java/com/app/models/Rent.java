@@ -2,6 +2,9 @@ package com.app.models;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -13,7 +16,7 @@ import java.util.List;
  */
 @Entity
 @NamedQuery(name="Rent.findAll", query="SELECT r FROM Rent r")
-public class Rent implements Serializable {
+public class Rent implements Serializable, Cloneable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -33,23 +36,40 @@ public class Rent implements Serializable {
 	@Temporal(TemporalType.DATE)
 	@Column(name="RENT_END_DATE")
 	private Date rentEndDate;
-
+	
+	@Min(value = 0L, message = "The value must be positive")
 	@Column(name="RENT_PRICE")
 	private BigDecimal rentPrice;
-
+	
 	@Temporal(TemporalType.DATE)
 	@Column(name="RENT_START_DATE")
 	private Date rentStartDate;
-
+	
+	@NotNull
 	@ManyToMany(cascade = CascadeType.PERSIST)
 	private List<Car> cars;
 
 	//bi-directional many-to-one association to Customer
+	@NotNull
 	@ManyToOne
 	@JoinColumn(name="RENT_CUSTOMER_ID")
 	private Customer customer;
 
 	public Rent() {
+	}
+
+	public Rent(int rentId, int rentAddedBy, String rentComment, boolean rentDeleted, Date rentEndDate,
+			BigDecimal rentPrice, Date rentStartDate, List<Car> cars, Customer customer) {
+		super();
+		this.rentId = rentId;
+		this.rentAddedBy = rentAddedBy;
+		this.rentComment = rentComment;
+		this.rentDeleted = rentDeleted;
+		this.rentEndDate = rentEndDate;
+		this.rentPrice = rentPrice;
+		this.rentStartDate = rentStartDate;
+		this.cars = cars;
+		this.customer = customer;
 	}
 
 	public int getRentId() {
@@ -123,5 +143,10 @@ public class Rent implements Serializable {
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
+	
+	@Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
 
 }
