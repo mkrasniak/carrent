@@ -15,15 +15,15 @@
 							<li><a href="#" th:href="@{/cars}">Cars</a></li>
 							<li><a href="#" th:href="@{/rents}">Rent</a></li>
 							<li><a href="#" th:href="@{/customers}">Customers</a></li>
-							<li><a href="#" th:href="@{/users}">System user</a></li>
+							<li><a href="#" th:href="@{/users}"       sec:authorize="hasRole('ROLE_ADMIN')">System user   </a></li>                        
 						</ul>
 
 					</div>
 					<div class="navbar-header pull-right">
-
-						<span sec:authorize="not isAuthenticated()"><a
-							href="/logout" class="navbar-brand glyphicon glyphicon-log-out">Log out</a> </span> 
 						<span class="navbar-brand" sec:authorize="isAuthenticated()">Welcome <span sec:authentication="name"></span></span>
+						<span sec:authorize="isAuthenticated()"><a
+							href="/logout" class="navbar-brand glyphicon glyphicon-log-out">Log out</a> </span> 
+						
 					</div>
 				</div>
 			</nav>
